@@ -1,4 +1,6 @@
 nltk
+pandas
+numpy
 matplotlib
 seaborn
 statsmodels
