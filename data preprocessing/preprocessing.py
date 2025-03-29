@@ -12,7 +12,7 @@ from nltk.stem import WordNetLemmatizer
 
 
 ## read the data
-df_raw = pd.read_csv('Data/Raw/Job_Frauds.csv', encoding='latin-1')
+df_raw = pd.read_csv('../Data/Raw/Job_Frauds.csv', encoding='latin-1')
 
 
 ## split 'Job Location' into 'Country', 'State', 'City'
@@ -23,17 +23,23 @@ df['State'] = split_location[1]
 df['City'] = split_location[2] 
 df = df.drop(columns=['Job Location'])
 
+## replaced NaN with 'unknown'
+text_cols = ['Job Title','Profile', 'Job_Description', 'Requirements', 'Job_Benefits','Type_of_Employment','Experience','Qualification',
+        'Department', 'Type_of_Industry', 'Operations','Country','State','City']
+df[text_cols] = df[text_cols].fillna('unknown')
+
 ## convert strings to lower case
 df = df.applymap(lambda x: x.lower() if isinstance(x, str) else x)
 
 ## remove punctuations and symbols
 df = df.replace(to_replace=r'[^\w\s]', value='', regex=True)
 
-## tokenize, remove stop words, and lemmatize for columns 'Profile', 'Job_Description', 'Requirements', 'Job_Benefits'
+## tokenize, remove stop words, and lemmatize for columns 'Profile', 'Job_Description', 'Requirements', 'Job_Benefits','Job Title',
+## 'Department', 'Type_of_Industry', 'Operations
 # initialize stop words and lemmatizer
 stop_words = set(stopwords.words('english'))
 lemmatizer = WordNetLemmatizer()    
-cols = ['Profile', 'Job_Description', 'Requirements', 'Job_Benefits']
+cols = ['Profile', 'Job_Description', 'Requirements', 'Job_Benefits','Job Title', 'Department', 'Type_of_Industry', 'Operations']
 
 for col in cols:
     # apply tokenization 
@@ -45,5 +51,8 @@ for col in cols:
 
 print(df)
 
+for col in cols:
+    df[col] = df[col].apply(lambda x: " ".join(x))
+
 ## save as csv
-#df.to_csv('Data/Processed/processed_df.csv', index=False)
+#df.to_csv('../Data/Processed/processed_df.csv', index=False)
