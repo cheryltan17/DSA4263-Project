@@ -1,0 +1,8 @@
+nltk
+matplotlib
+seaborn
+statsmodels
+scipy
+sentence_transformers
+charset-normalizer
+sys
