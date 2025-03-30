@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
 
 # Replace empty string, empty list as NaN
 def replace_empty_values(x):
@@ -31,5 +32,9 @@ def eda(df):
     df['Range_of_Salary'] = pd.to_numeric(df['Range_of_Salary'], errors='coerce')
     median_salary = df['Range_of_Salary'].median()
     df['Range_of_Salary'] = df['Range_of_Salary'].fillna(median_salary).astype(int)
+
+    # Scale Range_of_salary to range of (0,1)
+    scaler = MinMaxScaler()
+    df['Range_of_Salary'] = scaler.fit_transform(df[['Range_of_Salary']])
 
     return df
