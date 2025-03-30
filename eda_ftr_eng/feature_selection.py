@@ -81,7 +81,6 @@ def select_random_forest(features: pd.DataFrame, labels: pd.DataFrame, top_k: in
 
 def select_features(data, features, model_name, k):
     if model_name == "select_k_best": model = select_k_best
-    elif model_name == "select_rfe_with_class_weights": model = select_rfe_with_class_weights
     elif model_name == "select_random_forest": model = select_random_forest
     elif model_name == "select_k_best_chi2": model= select_k_best_chi2
     else: print("No such model")
@@ -108,12 +107,12 @@ def feature_selection(df):
 
     features = non_embed_df.drop(['Fraudulent'], axis=1).columns
 
-    score_df_k_best = feature_selection(non_embed_df, features, "select_k_best", 22)
-    score_df_rf= feature_selection(non_embed_df, features, "select_random_forest", 22)
+    score_df_k_best = select_features(non_embed_df, features, "select_k_best", 22)
+    score_df_rf= select_features(non_embed_df, features, "select_random_forest", 22)
 
     #Chi2 works best for categorical variable, so we remove Range of Salary
     features = non_embed_df.drop(['Fraudulent', 'Range_of_Salary'], axis=1).columns
-    score_df_chi2= feature_selection(non_embed_df, features, "select_k_best_chi2", 22)
+    score_df_chi2= select_features(non_embed_df, features, "select_k_best_chi2", 22)
 
     # ftr_selection_df_score['feature'] = score_df_k_best['features']
     score_df_k_best_normalised = normalise_score_df(score_df_k_best, "score_df_k_best")
