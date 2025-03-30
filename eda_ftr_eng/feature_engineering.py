@@ -52,6 +52,11 @@ def feature_engineering(df):
     # One-Hot Encode
     df_aft_enc = pd.get_dummies(df_aft_str_embed, columns=categorical_columns, drop_first=True)   
     
+    # Convert to integer for modelling
+    for col in df_aft_enc.columns:
+        if df_aft_enc[col].dtype == 'bool':
+            df_aft_enc[col] = df_aft_enc[col].astype(int)
+
     return df_aft_enc
 
 
