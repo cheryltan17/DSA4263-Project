@@ -143,7 +143,7 @@ def feature_selection(df):
     #get the features with mean scores of > 0.02
     combined_scores = combined_scores[combined_scores['mean_score'] > 0.02]
     selected_features_non_embed = combined_scores['features'].to_list()
-    selected_features = selected_features_non_embed + embed_cols
+    selected_features = selected_features_non_embed + embed_cols + ["Fraudulent"]
     result_df = df[selected_features] 
 
     return result_df
