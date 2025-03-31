@@ -19,7 +19,7 @@ def eda(df):
     df = df[df['Country'] == 'us']
     df = df.drop(['State','Country'], axis=1)
     
-    df = df.map(lambda x: replace_empty_values(x))
+    df = df.applymap(lambda x: replace_empty_values(x))
 
     # These columns are very significant when unspecified/specified
     df['Salary_Specified'] = df['Range_of_Salary'].notna()
