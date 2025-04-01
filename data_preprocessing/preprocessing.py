@@ -5,10 +5,17 @@
 
 ## import libraries
 import pandas as pd
+import unicodedata
 import nltk
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
+
+## function to replace accents (eg. áéíóú -> aeiou)
+def strip_accents(text):
+    return ''.join(char for char in
+                   unicodedata.normalize('NFKD', text)
+                   if unicodedata.category(char) != 'Mn')
 
 def preprocessing(df):
     ## split 'Job Location' into 'Country', 'State', 'City'
@@ -28,6 +35,13 @@ def preprocessing(df):
 
     ## remove punctuations and symbols
     df = df.replace(to_replace=r'[^\w\s]', value='', regex=True)
+
+    ## replace accents
+    for col in text_cols:
+        # replace accent
+        df[col] = df[col].apply(lambda x: [strip_accents(x)])
+        df[col] = df[col].apply(lambda x: " ".join(x))
+
 
     ## tokenize, remove stop words, and lemmatize for columns 'Profile', 'Job_Description', 'Requirements', 'Job_Benefits','Job Title',
     ## 'Department', 'Type_of_Industry', 'Operations
