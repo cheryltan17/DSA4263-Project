@@ -1,8 +1,8 @@
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.decomposition import PCA
 
 from imblearn.under_sampling import RandomUnderSampler
 from imblearn.over_sampling import RandomOverSampler
@@ -15,6 +15,32 @@ def convert_to_array(s):
     cleaned_str = s.strip('[]').replace('\n', ' ').replace('  ', ' ').strip()
     # Convert the cleaned string to a NumPy array
     return np.fromstring(cleaned_str, sep=' ')
+
+
+## flatten embedded columns
+def flatten(df):    
+    embedded_cols = ["Job Title_embed","Profile_embed","Department_embed","Job_Description_embed","Requirements_embed",
+                     "Job_Benefits_embed","Type_of_Industry_embed","Operations_embed","City_embed"]
+    categorical_feats = ["Qualification_bachelor's degree", "Salary_Specified", "Type_of_Employment_unspecified","Qualification_high school", "City_Specified", "Experience_entry level","Qualification_master's degree","Experience_unspecified", "Telecomunication","Qualification_vocational / certification/ professional","Experience_midsenior level", "Qualification_unspecified", "Type_of_Employment_fulltime"]
+    X_text = np.hstack([np.vstack(df[col]) for col in embedded_cols]) 
+    X_cat = df[categorical_feats].values
+    X_num = df[['Range_of_Salary']]
+    return np.hstack([X_text, X_cat, X_num])
+
+def do_pca(X_std):
+    pca = PCA()
+    X_pca = pca.fit_transform(X_std)
+    
+    # Plot Explained Variance Ratio
+    explained_var_ratio = pca.explained_variance_ratio_
+    cumulative_var_ratio = np.cumsum(explained_var_ratio)
+    plt.plot(range(1, len(cumulative_var_ratio) + 1), cumulative_var_ratio, marker='o')
+    plt.xlabel('Number of Principal Components')
+    plt.ylabel('Cumulative Explained Variance Ratio')
+    plt.title('Explained Variance Ratio vs. Number of Principal Components')
+    plt.show()
+    return X_pca
+    
 
 def resampling_method(method,X_train,y_train):
     if method == 'Undersampling':
