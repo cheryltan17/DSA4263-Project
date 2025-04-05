@@ -8,3 +8,4 @@ scipy
 sentence_transformers
 charset-normalizer
 sys
+imblearn
