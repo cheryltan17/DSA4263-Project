@@ -6,8 +6,7 @@ from sklearn.decomposition import PCA
 
 from imblearn.under_sampling import RandomUnderSampler
 from imblearn.over_sampling import RandomOverSampler
-from imblearn.over_sampling import SMOTE
-from sklearn.metrics import accuracy_score, classification_report, roc_curve, confusion_matrix, roc_auc_score, auc
+from sklearn.metrics import accuracy_score, classification_report, roc_curve, confusion_matrix, roc_auc_score, auc,f1_score
 
 ## convert embedded columns to numpy arrays
 def convert_to_array(s):
@@ -64,6 +63,7 @@ def evaluate_model(y_test,y_pred, model_name):
     ax.set_ylabel('True labels')
     ax.set_title(f'Confusion Matrix for {model_name}')
     print("Accuracy:", accuracy_score(y_test, y_pred))
+    print("f1-score:", f1_score(y_test, y_pred))
     print(classification_report(y_test, y_pred))
     return cm
 
@@ -72,6 +72,7 @@ def auc_roc(model,model_name,X_test,y_test):
     auc_score = round(roc_auc_score(y_test, pred_prob[:,1]),3)
     fpr, tpr, thresh = roc_curve(y_test, pred_prob[:,1], pos_label=1)
     plt.plot(fpr, tpr, linestyle='--',color='orange', label ='ROC curve (area = %0.3f)' % auc_score)
+    plt.plot([0, 1], [0, 1], 'k--')
     # title
     plt.title('ROC curve')
     # x label
