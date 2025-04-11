@@ -6,7 +6,7 @@ from sklearn.decomposition import PCA
 
 from imblearn.under_sampling import RandomUnderSampler
 from imblearn.over_sampling import RandomOverSampler
-from sklearn.metrics import accuracy_score, classification_report, roc_curve, confusion_matrix, roc_auc_score, auc,f1_score
+from sklearn.metrics import accuracy_score, classification_report, roc_curve, confusion_matrix, roc_auc_score, auc,f1_score,precision_score,recall_score
 
 ## convert embedded columns to numpy arrays
 def convert_to_array(s):
@@ -62,10 +62,18 @@ def evaluate_model(y_test,y_pred, model_name):
     ax.set_xlabel('Predicted labels')
     ax.set_ylabel('True labels')
     ax.set_title(f'Confusion Matrix for {model_name}')
-    print("Accuracy:", accuracy_score(y_test, y_pred))
-    print("f1-score:", f1_score(y_test, y_pred))
+    accuracy = accuracy_score(y_test,y_pred)
+    precision = precision_score(y_test, y_pred, pos_label=1)
+    recall = recall_score(y_test,y_pred, pos_label=1)
+    f1 = f1_score(y_test, y_pred, pos_label=1)
+    performance_score = {
+            "accuracy": accuracy,
+            "precision": precision,
+            "recall": recall,
+            "f1_score": f1
+        }
     print(classification_report(y_test, y_pred))
-    return cm
+    return performance_score
 
 def auc_roc(model,model_name,X_test,y_test):
     pred_prob = model.predict_proba(X_test)
