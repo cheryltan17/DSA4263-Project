@@ -19,12 +19,12 @@ def convert_to_array(s):
 ## flatten embedded columns
 def flatten(df):    
     embedded_cols = ["Job Title_embed","Profile_embed","Department_embed","Job_Description_embed","Requirements_embed",
-                     "Job_Benefits_embed","Type_of_Industry_embed","Operations_embed","City_embed"]
-    categorical_feats = ["Qualification_bachelor's degree", "Salary_Specified", "Type_of_Employment_unspecified","Qualification_high school", "City_Specified", "Experience_entry level","Qualification_master's degree","Experience_unspecified", "Telecomunication","Qualification_vocational / certification/ professional","Experience_midsenior level", "Qualification_unspecified", "Type_of_Employment_fulltime"]
+                "Job_Benefits_embed","Type_of_Industry_embed","Operations_embed","City_embed"]
+    categorical_feats = ["Comnpany_Logo","Qualification_master's degree","Qualification_vocational / certification/ professional",
+                     "Experience_executive", "Qualification_doctorate"]
     X_text = np.hstack([np.vstack(df[col]) for col in embedded_cols]) 
     X_cat = df[categorical_feats].values
-    X_num = df[['Range_of_Salary']]
-    return np.hstack([X_text, X_cat, X_num])
+    return np.hstack([X_text, X_cat])
 
 def do_pca(X_std):
     pca = PCA()
