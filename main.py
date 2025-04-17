@@ -3,9 +3,9 @@ from pathlib import Path
 import sys
 sys.path.append(str(Path().resolve().parent))
 from data_preprocessing.preprocessing import preprocessing
-from eda_ftr_eng.EDA import eda
-from eda_ftr_eng.feature_engineering import feature_engineering
-from eda_ftr_eng.feature_selection import feature_selection
+from src.data.EDA import eda
+from src.features.feature_engineering import feature_engineering
+from src.features.feature_selection import feature_selection
 
 df_raw = pd.read_csv('Data/Raw/Job_Frauds.csv', encoding='latin-1')
 preprocessed_df = preprocessing(df_raw)
