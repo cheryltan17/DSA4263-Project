@@ -20,8 +20,8 @@ source venv/bin/activate  # On Windows use: venv\Scripts\activate
 pip install -r requirementx.txt 
 ```
 
-```
 ## Project Structure
+```
 ├── README.md <- The top-level README for developers using this project.
 ├── data
 │   ├── processed           <- The final, canonical data sets for modeling.
@@ -48,7 +48,9 @@ pip install -r requirementx.txt
 
 ## Usage
 *Run from command line:*
+```
 python src/data/make_dataset.py
 python src/features/build_features.py
 python src/models/train_model.py
 python src/models/predict_model.py
+```
