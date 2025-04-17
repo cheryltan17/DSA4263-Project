@@ -17,7 +17,7 @@ source venv/bin/activate  # On Windows use: venv\Scripts\activate
 
 3. **Install packages**
 ```
-pip install -r requirementx.txt 
+pip install -r requirements.txt 
 ```
 
 ## Project Structure
