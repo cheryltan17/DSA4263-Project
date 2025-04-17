@@ -4,9 +4,13 @@ numpy
 matplotlib
 seaborn
 statsmodels
+sklearn
 scipy
 sentence_transformers
 charset-normalizer
 imblearn
 tensorflow
 kneed
+sys
+os
+xgboost
