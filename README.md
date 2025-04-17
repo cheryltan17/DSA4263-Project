@@ -31,7 +31,7 @@ pip install -r requirements.txt
 ├── src/                    <- Source code for the project
 │   ├── __init__.py         <- Makes src a Python module
 │   ├── data/               <- Scripts for data downloading/generation
-│   │   └── eda.py
+│   │   └── EDA.py
     │   └── preprocessing.py
 │   ├── features/           <- Feature engineering scripts
 │   │   └── feature_engineering.py
