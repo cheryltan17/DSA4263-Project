@@ -6,10 +6,11 @@
 ## import libraries
 import pandas as pd
 import unicodedata
-import nltk
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
+import numpy as np
+from sklearn.preprocessing import MinMaxScaler
 
 ## function to replace accents (eg. áéíóú -> aeiou)
 def strip_accents(text):
@@ -17,6 +18,19 @@ def strip_accents(text):
                    unicodedata.normalize('NFKD', text)
                    if unicodedata.category(char) != 'Mn')
 
+# Replace empty string, empty list as NaN
+def replace_empty_values(x):
+    if isinstance(x, str) and x.strip() == '':
+        return np.nan
+    elif isinstance(x, list) and len(x) == 0:
+        return np.nan
+    elif isinstance(x, (list, np.ndarray)) and len(x) == 0:
+        return np.nan
+    elif x is None:
+        return np.nan
+    else:
+        return x
+    
 def preprocessing(df):
     ## split 'Job Location' into 'Country', 'State', 'City'
     split_location = df['Job Location'].str.split(', ', expand=True)
@@ -58,12 +72,6 @@ def preprocessing(df):
         # apply lemmatization
         df[col] = df[col].apply(lambda x: [lemmatizer.lemmatize(word) for word in x])
 
-    # print(df)
-
     for col in cols:
         df[col] = df[col].apply(lambda x: " ".join(x))
-
     return df
-
-## save as csv
-#df.to_csv('../Data/Processed/processed_df.csv', index=False)

@@ -1,5 +1,6 @@
 from sentence_transformers import SentenceTransformer
 import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
 
 def simplify_qualification(q):
     if pd.isna(q) or q in ["unspecified", "other"]:
@@ -56,6 +57,10 @@ def feature_engineering(df):
     for col in df_aft_enc.columns:
         if df_aft_enc[col].dtype == 'bool':
             df_aft_enc[col] = df_aft_enc[col].astype(int)
+
+    #Scale Range of Salary
+    scaler = MinMaxScaler()
+    df_aft_enc['Range_of_Salary'] = scaler.fit_transform(df_aft_enc[['Range_of_Salary']])
 
     return df_aft_enc
 
