@@ -9,17 +9,18 @@ git clone git@github.com:cheryltan17/DSA4263-Project.git
 cd DSA4263-PROJECT
 ```
 
-2. **(Optional but recommended) Create and activate a virtual environment: **
+2. **(Optional but recommended) Create and activate a virtual environment:**
 ```
 python -m venv venv
 source venv/bin/activate  # On Windows use: venv\Scripts\activate
 ```
 
-3. ** Install packages**
+3. **Install packages**
 ```
 pip install -r requirementx.txt 
 ```
 
+```
 ## Project Structure
 ├── README.md <- The top-level README for developers using this project.
 ├── data
@@ -43,7 +44,7 @@ pip install -r requirementx.txt
 │   └── 4-models.ipynb
 └── models/                 <- Trained and serialized models, model predictions, or model summaries
   └── Models.py
-
+```
 
 ## Usage
 *Run from command line:*
