@@ -31,19 +31,18 @@ pip install -r requirements.txt
 ├── src/                    <- Source code for the project
 │   ├── __init__.py         <- Makes src a Python module
 │   ├── data/               <- Scripts for data downloading/generation
-│   │   └── make_dataset.py
+│   │   └── eda.py
+    │   └── preprocessing.py
 │   ├── features/           <- Feature engineering scripts
-│   │   └── build_features.py
-│   └── models/             <- Training and prediction scripts
-│       ├── train_model.py
-│       └── predict_model.py
+│   │   └── feature_engineering.py
+    │   └── feature_selection.py
+│   └── models/            
+│       ├── models.py
 ├── notebooks/                    
 │   ├── 1-preprocessing.ipynb      
 │   ├── 2-EDA.ipynb
 │   ├── 3-feature-engineering-and-selection.ipynb
 │   └── 4-models.ipynb
-└── models/                 <- Trained and serialized models, model predictions, or model summaries
-  └── Models.py
 ```
 
 ## Usage
