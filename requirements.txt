@@ -9,3 +9,4 @@ sentence_transformers
 charset-normalizer
 imblearn
 tensorflow
+kneed
